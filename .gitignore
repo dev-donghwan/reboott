@@ -1,40 +1,50 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+/build/
+/out/
+/target/
+/bin/
+/.gradle/
+/.idea/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+*.iws
+*.class
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+*.kotlin_module
 
-### VS Code ###
-.vscode/
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
 
-### Kotlin ###
-.kotlin
+/*.jar
+/*.war
+/*.zip
+
+.env
+*.local
+application.yml
+application-*.yml
+application.properties
+application-*.properties
+
+/docker-data/
+*.pid
+
+/test-output/
+/coverage/
+/jacoco.exec
+
+logs/
+*.log
+!README.md
