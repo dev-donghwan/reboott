@@ -13,8 +13,8 @@ enum class SuccessCode(
     override val code: String,
     override val message: String
 ) : HttpCode {
-    OK(HttpStatus.OK, "SUCCESS_OK", "요청 성공"),
-    CREATED(HttpStatus.CREATED, "SUCCESS_CREATED", "생성 성공")
+    OK(HttpStatus.OK, "SUCCESS_OK", "success"),
+    CREATED(HttpStatus.CREATED, "SUCCESS_CREATED", "create success")
 }
 
 enum class ErrorCode(
@@ -22,6 +22,8 @@ enum class ErrorCode(
     override val code: String,
     override val message: String
 ) : HttpCode {
-    INVALID_PARAM(HttpStatus.BAD_REQUEST, "INVALID_PARAM", "잘못된 인자"),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR", "")
+    ENTITY_NOT_FOUND(HttpStatus.NOT_FOUND, "ENTITY_NOT_FOUND", "The requested entity was not found."),
+    INVALID_PARAM(HttpStatus.BAD_REQUEST, "INVALID_PARAM", "Invalid request parameters."),
+    ID_INITIALIZE(HttpStatus.INTERNAL_SERVER_ERROR, "ID_INITIALIZE", "The entity ID has not been initialized."),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR", "An unexpected server error occurred.")
 }
