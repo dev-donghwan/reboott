@@ -17,7 +17,7 @@ class GlobalExceptionHandler {
         } ?: logger().error("GlobalException occurred: ${ex.message}")
 
         return HttpResponse.failure(
-            code = ex.getErrorCode(),
+            code = ex.errorCode,
             message = ex.message
         )
     }

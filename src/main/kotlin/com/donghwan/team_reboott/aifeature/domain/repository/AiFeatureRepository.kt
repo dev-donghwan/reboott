@@ -9,4 +9,6 @@ interface AiFeatureRepository {
     fun getById(id: Long): AiFeature
 
     fun getAll(): List<AiFeature>
+
+    fun getAllByIds(ids: List<Long>): List<AiFeature>
 }

@@ -17,4 +17,6 @@ class AiFeatureRepositoryImpl(
 
     override fun getAll(): List<AiFeature> = jpaRepository.findAll()
 
+    override fun getAllByIds(ids: List<Long>): List<AiFeature> = jpaRepository.findAllById(ids)
+
 }

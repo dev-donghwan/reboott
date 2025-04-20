@@ -66,7 +66,7 @@ class AiFeatureServiceTest {
             }
 
             // then
-            assertThat(exception.getErrorCode()).isEqualTo(ErrorCode.ID_INITIALIZE)
+            assertThat(exception.errorCode).isEqualTo(ErrorCode.ID_INITIALIZE)
         }
     }
 
