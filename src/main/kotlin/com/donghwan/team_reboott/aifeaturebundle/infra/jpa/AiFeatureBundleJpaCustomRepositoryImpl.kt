@@ -1,11 +1,5 @@
 package com.donghwan.team_reboott.aifeaturebundle.infra.jpa
 
-import com.donghwan.team_reboott.aifeature.domain.model.AiFeature
-import com.donghwan.team_reboott.aifeaturebundle.domain.model.AiFeatureBundle
-import com.donghwan.team_reboott.aifeaturebundle.domain.model.AiFeatureBundleMapping
-import com.linecorp.kotlinjdsl.dsl.jpql.jpql
-import com.linecorp.kotlinjdsl.render.jpql.JpqlRenderContext
-import com.linecorp.kotlinjdsl.render.jpql.JpqlRenderer
 import jakarta.persistence.EntityManager
 import org.springframework.stereotype.Component
 

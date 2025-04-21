@@ -2,9 +2,12 @@ package com.donghwan.team_reboott.aifeature.application.service
 
 import com.donghwan.team_reboott.aifeature.domain.model.AiFeature
 import com.donghwan.team_reboott.aifeature.domain.model.LimitUnit
+import com.donghwan.team_reboott.aifeature.domain.policy.FeatureUsageCalculatorRouter
 import com.donghwan.team_reboott.aifeature.domain.repository.AiFeatureRepository
 import com.donghwan.team_reboott.common.exception.GlobalException
+import com.donghwan.team_reboott.common.lock.DistributedLock
 import com.donghwan.team_reboott.common.response.ErrorCode
+import com.donghwan.team_reboott.company.domain.repository.CompanyRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -14,8 +17,11 @@ import org.mockito.kotlin.whenever
 
 class AiFeatureServiceTest {
 
-    private val repository = mock<AiFeatureRepository>()
-    private val service = AiFeatureService(repository)
+    private val distributedLock: DistributedLock = mock()
+    private val calculatorRouter: FeatureUsageCalculatorRouter = mock()
+    private val aiFeatureRepository: AiFeatureRepository = mock()
+    private val companyRepository: CompanyRepository = mock()
+    private val service = AiFeatureService(distributedLock, calculatorRouter, aiFeatureRepository, companyRepository)
 
     @Nested
     inner class FindAll {
@@ -28,7 +34,7 @@ class AiFeatureServiceTest {
                 AiFeature.create("Translate", 200, 2000, LimitUnit.PER_MONTH).copyWithId(2L)
             )
 
-            whenever(repository.getAll()).thenReturn(list)
+            whenever(aiFeatureRepository.getAll()).thenReturn(list)
 
             // when
             val result = service.findAll()
@@ -42,7 +48,7 @@ class AiFeatureServiceTest {
         @Test
         fun success_empty_list() {
             // given
-            whenever(repository.getAll()).thenReturn(emptyList())
+            whenever(aiFeatureRepository.getAll()).thenReturn(emptyList())
 
             // when
             val result = service.findAll()
@@ -58,7 +64,7 @@ class AiFeatureServiceTest {
                 AiFeature.create("Chat", 100, 1000, LimitUnit.PER_REQUEST)
             )
 
-            whenever(repository.getAll()).thenReturn(list)
+            whenever(aiFeatureRepository.getAll()).thenReturn(list)
 
             // when
             val exception = assertThrows<GlobalException> {
