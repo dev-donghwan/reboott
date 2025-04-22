@@ -7,11 +7,7 @@ import com.donghwan.team_reboott.aifeature.presentation.dto.response.AiFeatureLi
 import com.donghwan.team_reboott.common.alias.Result
 import com.donghwan.team_reboott.common.http.HttpResponse
 import com.donghwan.team_reboott.common.response.SuccessCode
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class AiFeatureController(
