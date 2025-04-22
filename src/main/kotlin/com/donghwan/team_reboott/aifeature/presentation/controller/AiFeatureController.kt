@@ -23,6 +23,7 @@ class AiFeatureController(
         )
     }
 
+
     @PostMapping("/v1/ai-features/{featureId}")
     fun useFeature(
         @PathVariable featureId: Long,
