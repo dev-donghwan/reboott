@@ -6,6 +6,6 @@ data class CreateAiFeatureBundleCommand(
 ) {
     init {
         require(name.isNotBlank()) { "Name cannot be blank" }
-        require(featureIds.isNotEmpty()) { "Ids cannot be empty" }
+        require(featureIds.isNotEmpty()) { "featureIds cannot be empty" }
     }
 }

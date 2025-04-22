@@ -5,6 +5,8 @@ import com.donghwan.team_reboott.common.response.ErrorCode
 import com.donghwan.team_reboott.company.domain.model.Company
 import com.donghwan.team_reboott.company.domain.repository.CompanyRepository
 import com.donghwan.team_reboott.company.infra.jpa.CompanyJpaRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
 
 @Component
@@ -18,5 +20,9 @@ class CompanyRepositoryImpl(
 
     override fun getById(companyId: Long): Company {
         return jpaRepository.findById(companyId).orElseThrow { throw GlobalException(ErrorCode.ENTITY_NOT_FOUND) }
+    }
+
+    override fun getAll(pageable: Pageable): Page<Company> {
+        return jpaRepository.findAll(pageable)
     }
 }

@@ -5,7 +5,11 @@ import com.donghwan.team_reboott.common.lock.DistributedLock
 import com.donghwan.team_reboott.common.lock.LockKey
 import com.donghwan.team_reboott.company.application.dto.ChargeCompanyCreditCommand
 import com.donghwan.team_reboott.company.application.dto.UpdateCompanyBundleCommand
+import com.donghwan.team_reboott.company.domain.model.Company
 import com.donghwan.team_reboott.company.domain.repository.CompanyRepository
+import com.donghwan.team_reboott.company.presentation.dto.CompanyDto
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -17,6 +21,18 @@ class CompanyService(
     private val bundleRepository: AiFeatureBundleRepository,
     private val companyRepository: CompanyRepository,
 ) {
+
+    @Transactional(readOnly = true)
+    fun findAll(pageable: Pageable): Page<CompanyDto> {
+        return companyRepository.getAll(pageable).map {
+            CompanyDto(
+                id = it.id,
+                name = it.name,
+                credit = it.credit.amount,
+                bundleId = if (it.hasBundle()) it.bundle.id else null
+            )
+        }
+    }
 
     @Transactional
     fun changeBundle(command: UpdateCompanyBundleCommand) {

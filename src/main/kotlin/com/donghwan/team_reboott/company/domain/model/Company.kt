@@ -12,7 +12,7 @@ class Company private constructor(
     val name: String,
     @OneToOne @JoinColumn(name = "credit_id")
     val credit: CompanyCredit,
-    @OneToOne @JoinColumn(name = "bunld_id")
+    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "bundle_id")
     private var _bundle: AiFeatureBundle? = null
 ) {
     val id: Long
@@ -20,6 +20,8 @@ class Company private constructor(
 
     val bundle: AiFeatureBundle
         get() = _bundle ?: throw GlobalException(ErrorCode.ENTITY_NOT_ASSIGNED)
+
+    fun hasBundle(): Boolean = _bundle != null
 
     fun assignBundle(bundle: AiFeatureBundle) {
         _bundle = bundle

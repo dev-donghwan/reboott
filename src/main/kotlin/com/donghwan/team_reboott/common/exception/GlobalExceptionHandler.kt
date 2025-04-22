@@ -6,9 +6,19 @@ import com.donghwan.team_reboott.common.http.HttpResponse
 import com.donghwan.team_reboott.common.response.ErrorCode
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import java.lang.IllegalArgumentException
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(ex: IllegalArgumentException): Result<Unit> {
+        logger().error("Unhandled RuntimeException: ${ex.message}", ex)
+        return HttpResponse.failure(
+            code = ErrorCode.INVALID_PARAM,
+            message = ex.message
+        )
+    }
 
     @ExceptionHandler(GlobalException::class)
     fun handleGlobalException(ex: GlobalException): Result<Unit> {
