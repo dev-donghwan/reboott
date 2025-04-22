@@ -42,3 +42,7 @@ chmod +x ./gradlew
 ```bash
 ./gradlew test
 ```
+
+### 5️⃣ Swagger로 API 문서 확인
+
+[애플리케이션 실행 후 아래 URL에서 Swagger UI를 통해 API 명세를 확인할 수 있습니다:](http://localhost:8080/swagger-ui/index.html)
