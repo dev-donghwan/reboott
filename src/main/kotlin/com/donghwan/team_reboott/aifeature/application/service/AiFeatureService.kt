@@ -4,6 +4,7 @@ import com.donghwan.team_reboott.aifeature.application.dto.UseFeatureCommand
 import com.donghwan.team_reboott.aifeature.domain.policy.FeatureUsageCalculatorRouter
 import com.donghwan.team_reboott.aifeature.domain.repository.AiFeatureRepository
 import com.donghwan.team_reboott.aifeature.presentation.dto.AiFeatureDto
+import com.donghwan.team_reboott.aifeatureusage.application.AiFeatureUsageService
 import com.donghwan.team_reboott.common.exception.GlobalException
 import com.donghwan.team_reboott.common.lock.DistributedLock
 import com.donghwan.team_reboott.common.lock.LockKey
@@ -18,6 +19,8 @@ class AiFeatureService(
     private val distributedLock: DistributedLock,
     // Strategy
     private val calculatorRouter: FeatureUsageCalculatorRouter,
+    // Service
+    private val featureUsageService: AiFeatureUsageService,
     // Repository
     private val aiFeatureRepository: AiFeatureRepository,
     private val companyRepository: CompanyRepository,
@@ -53,8 +56,7 @@ class AiFeatureService(
             val requiredCredit = calculator.calculate(findCompany, findFeature, command.input)
             findCompany.credit.use(requiredCredit)
 
-            // TODO
-            // CompanyFeatureUsage(company, feature, LocalDateTime.now())
+            featureUsageService.create(findCompany, findFeature, requiredCredit, command.input.length)
         }
     }
 }

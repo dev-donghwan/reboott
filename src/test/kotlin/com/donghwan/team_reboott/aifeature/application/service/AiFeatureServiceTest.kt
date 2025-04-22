@@ -4,6 +4,7 @@ import com.donghwan.team_reboott.aifeature.domain.model.AiFeature
 import com.donghwan.team_reboott.aifeature.domain.model.LimitUnit
 import com.donghwan.team_reboott.aifeature.domain.policy.FeatureUsageCalculatorRouter
 import com.donghwan.team_reboott.aifeature.domain.repository.AiFeatureRepository
+import com.donghwan.team_reboott.aifeatureusage.application.AiFeatureUsageService
 import com.donghwan.team_reboott.common.exception.GlobalException
 import com.donghwan.team_reboott.common.lock.DistributedLock
 import com.donghwan.team_reboott.common.response.ErrorCode
@@ -19,9 +20,10 @@ class AiFeatureServiceTest {
 
     private val distributedLock: DistributedLock = mock()
     private val calculatorRouter: FeatureUsageCalculatorRouter = mock()
+    private val featureUsageService: AiFeatureUsageService = mock()
     private val aiFeatureRepository: AiFeatureRepository = mock()
     private val companyRepository: CompanyRepository = mock()
-    private val service = AiFeatureService(distributedLock, calculatorRouter, aiFeatureRepository, companyRepository)
+    private val service = AiFeatureService(distributedLock, calculatorRouter, featureUsageService, aiFeatureRepository, companyRepository)
 
     @Nested
     inner class FindAll {
