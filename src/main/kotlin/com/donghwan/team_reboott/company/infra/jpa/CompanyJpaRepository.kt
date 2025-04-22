@@ -8,5 +8,5 @@ import java.util.*
 interface CompanyJpaRepository : JpaRepository<Company, Long> {
 
     @Query("SELECT c FROM Company c JOIN FETCH c._bundle WHERE c._id = :id")
-    override fun findById(id: Long): Optional<Company>
+    fun findByIdWithBundle(id: Long): Optional<Company>
 }

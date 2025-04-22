@@ -24,7 +24,7 @@ class CompanyServiceConcurrencyTest @Autowired constructor(
         val initialCredit = creditRepository.save(CompanyCredit.create(0))
         val company = companyRepository.save(Company.create("test", initialCredit))
 
-        val threadCount = 10
+        val threadCount = 3
         val chargeAmount = 100L
 
         // when

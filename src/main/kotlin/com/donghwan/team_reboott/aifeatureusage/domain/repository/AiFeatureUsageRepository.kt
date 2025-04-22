@@ -24,4 +24,11 @@ interface AiFeatureUsageRepository {
         end: LocalDateTime,
         pageable: Pageable
     ): Page<AiFeatureUsageProjectionDto>
+
+    fun countByCompanyIdAndFeatureIdAndUsedAtBetween(
+        companyId: Long,
+        featureId: Long,
+        start: LocalDateTime,
+        end: LocalDateTime
+    ): Long
 }

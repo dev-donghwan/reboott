@@ -37,7 +37,7 @@ class CompanyService(
     @Transactional
     fun changeBundle(command: UpdateCompanyBundleCommand) {
         val findBundle = bundleRepository.getById(command.bundleId)
-        val findCompany = companyRepository.getById(command.companyId)
+        val findCompany = companyRepository.getByIdWithBundle(command.companyId)
         findCompany.assignBundle(findBundle)
 
         companyRepository.save(findCompany)
@@ -50,5 +50,4 @@ class CompanyService(
             findCompany.credit.charge(command.chargeAmount)
         }
     }
-
 }

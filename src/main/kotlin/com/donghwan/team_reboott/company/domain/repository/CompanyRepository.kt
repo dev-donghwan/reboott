@@ -7,5 +7,6 @@ import org.springframework.data.domain.Pageable
 interface CompanyRepository {
     fun save(company: Company): Company
     fun getById(companyId: Long): Company
+    fun getByIdWithBundle(companyId: Long): Company
     fun getAll(pageable: Pageable): Page<Company>
 }

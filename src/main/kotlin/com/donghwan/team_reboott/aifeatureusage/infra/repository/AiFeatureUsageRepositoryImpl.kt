@@ -23,4 +23,8 @@ class AiFeatureUsageRepositoryImpl(
     override fun findByCompanyIdAndFeatureIdAndUsedAtBetween(companyId: Long, featureId: Long, start: LocalDateTime, end: LocalDateTime, pageable: Pageable): Page<AiFeatureUsageProjectionDto> {
         return aiFeatureUsageJpaRepository.findUsageByCompanyIdAndFeatureIdAndDateRange(companyId, featureId, start, end, pageable)
     }
+
+    override fun countByCompanyIdAndFeatureIdAndUsedAtBetween(companyId: Long, featureId: Long, start: LocalDateTime, end: LocalDateTime): Long {
+        return aiFeatureUsageJpaRepository.countByCompanyIdAndFeatureIdAndUsedAtBetween(companyId, featureId, start, end)
+    }
 }

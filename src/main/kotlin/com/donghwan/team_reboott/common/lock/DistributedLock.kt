@@ -62,7 +62,7 @@ class DistributedLock(
 
 data class LockKey(
     val value: String,
-    val waitTimeSec: Long = 5,
+    val waitTimeSec: Long = 30,
     val leaseTimeSec: Long = 3
 ) {
 

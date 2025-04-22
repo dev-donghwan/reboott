@@ -22,6 +22,10 @@ class CompanyRepositoryImpl(
         return jpaRepository.findById(companyId).orElseThrow { throw GlobalException(ErrorCode.ENTITY_NOT_FOUND) }
     }
 
+    override fun getByIdWithBundle(companyId: Long): Company {
+        return jpaRepository.findByIdWithBundle(companyId).orElseThrow { throw GlobalException(ErrorCode.ENTITY_NOT_FOUND) }
+    }
+
     override fun getAll(pageable: Pageable): Page<Company> {
         return jpaRepository.findAll(pageable)
     }

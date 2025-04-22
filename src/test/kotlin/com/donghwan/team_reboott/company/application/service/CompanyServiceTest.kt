@@ -36,7 +36,7 @@ class CompanyServiceTest {
             val bundle = AiFeatureBundle.create("test-bundle", listOf())
             val command = UpdateCompanyBundleCommand(companyId = 1L, bundleId = 2L)
 
-            whenever(companyRepository.getById(1L)).thenReturn(company)
+            whenever(companyRepository.getByIdWithBundle(1L)).thenReturn(company)
             whenever(bundleRepository.getById(2L)).thenReturn(bundle)
 
             // when
@@ -53,7 +53,7 @@ class CompanyServiceTest {
             val bundle = AiFeatureBundle.create("test-bundle", listOf())
 
             whenever(bundleRepository.getById(2L)).thenReturn(bundle)
-            whenever(companyRepository.getById(1L)).thenThrow(EntityNotFoundException("not found"))
+            whenever(companyRepository.getByIdWithBundle(1L)).thenThrow(EntityNotFoundException("not found"))
 
             // expect
             assertThrows<EntityNotFoundException> {
