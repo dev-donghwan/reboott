@@ -6,6 +6,8 @@ import com.donghwan.team_reboott.aifeature.domain.model.LimitUnit
 import com.donghwan.team_reboott.aifeature.domain.repository.AiFeatureRepository
 import com.donghwan.team_reboott.aifeaturebundle.domain.model.AiFeatureBundle
 import com.donghwan.team_reboott.aifeaturebundle.domain.repository.AiFeatureBundleRepository
+import com.donghwan.team_reboott.common.exception.GlobalException
+import com.donghwan.team_reboott.common.response.ErrorCode
 import com.donghwan.team_reboott.company.domain.model.Company
 import com.donghwan.team_reboott.company.domain.model.CompanyCredit
 import com.donghwan.team_reboott.company.domain.repository.CompanyRepository
@@ -109,5 +111,34 @@ class AiFeatureServiceConcurrencyTest @Autowired constructor(
         assertThat(successCount.get()).isEqualTo(allowedAttempts)
         assertThat(failureCount.get()).isEqualTo(threadCount - allowedAttempts)
         assertThat(updated.credit.amount).isEqualTo(0L)
+    }
+
+    @Test
+    fun failure_useFeature_when_feature_not_in_bundle() {
+        // given
+        val credit = creditRepository.save(CompanyCredit.create(1000))
+        val feature = aiFeatureRepository.save(
+            AiFeature.create("Chat", 100, 1000, LimitUnit.PER_REQUEST)
+        )
+        val bundle = bundleRepository.save(
+            AiFeatureBundle.create("Empty", emptyList()) // 👈 feature 미포함
+        )
+        val company = companyRepository.save(
+            Company.create("NoAccessCompany", credit).also { it.assignBundle(bundle) }
+        )
+
+        val command = UseFeatureCommand(
+            companyId = company.id,
+            featureId = feature.getIdOrThrow(),
+            input = "hello"
+        )
+
+        // when
+        val exception = org.junit.jupiter.api.assertThrows<GlobalException> {
+            aiFeatureService.useFeature(command)
+        }
+
+        // then
+        assertThat(exception.errorCode).isEqualTo(ErrorCode.FEATURE_NOT_AVAILABLE)
     }
 }
